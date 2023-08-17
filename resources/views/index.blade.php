@@ -1,6 +1,7 @@
 @extends('layouts.base')
 
 
+
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -43,7 +44,8 @@
                             <form action="{{ route('tasks.destroy', $task) }}" method="post" class="d-inline ">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm"
+                                    data-toggle="tooltip" title='Delete'>Eliminar</button>
                             </form>
                         </td>
                     </tr>
@@ -53,4 +55,38 @@
             {{ $tasks->links() }}
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+    <script type="text/javascript">
+        $('.show_confirm').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            Swal.fire({
+                title: '¿Seguro que desea eliminar tarea?',
+                text: "No podrás revertir esta acción!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Eliminar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Eliminada!',
+                        'Su tarea ah sido eliminada',
+                        'Exito'
+                    )
+
+                    form.submit();
+                }
+            })
+        });
+    </script>
 @endsection
