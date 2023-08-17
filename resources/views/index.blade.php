@@ -40,7 +40,7 @@
                         <td>
                             <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-warning">Editar</a>
 
-                            <form action="{{ route('tasks.destroy', $task) }}" method="post" class="d-inline">
+                            <form action="{{ route('tasks.destroy', $task) }}" method="post" class="d-inline ">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Eliminar</button>
